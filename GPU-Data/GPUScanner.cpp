@@ -4,6 +4,8 @@
 
 #include "include/GPUScanner.h"
 #include "include/SupportedVendors.h"
+#include "include/GPUHandler.h"
+#include "amdgpu/AMDGPUHandler.h"
 
 #include <libdrm/amdgpu_drm.h>
 #include <libdrm/amdgpu.h>
@@ -29,45 +31,19 @@ std::vector<CombinedGPUData> GPUScanner::scanPort() {
 
         // Handle a AMD GPU
         if (devices[i]->deviceinfo.pci->vendor_id == VendorID::VENDOR_ID_AMD) {
-
-            fd = -1;
-            if (devices[i]->available_nodes)
-                fd = open(
-                        devices[i]->nodes[i],
-                        O_RDWR | O_CLOEXEC);
-
-            drmVersion *version = drmGetVersion(fd);
-            if (!version) {
-
-                fprintf(stderr,
-                        "Warning: Cannot get version for %s."
-                        "Error is %s\n",
-                        devices[i]->nodes[i]);
-                close(fd);
-            }
-            if (strcmp(version->name, "amdgpu")) {
-                /* This is not AMDGPU driver, skip.*/
-                drmFreeVersion(version);
-                close(fd);
-            }
-            drmFreeVersion(version);
-            /*drm_amdgpu[amd_index] = fd;
-            amd_index++; */
-            std::cout << fd << std::endl;
-
-            amdgpu_device_handle device_handle;
-            uint32_t major_version, minor_version;
-
-            int res = amdgpu_device_initialize(fd, &major_version, &minor_version, &device_handle);
-
-            if(res == 0) {
-                CombinedGPUData data;
-            }
+            GPUHandler* amdGPUHandler = new AMDGPUHandler;
+            CombinedGPUData gpuData = amdGPUHandler->initializeGPUData(devices[i]);
+            result.push_back(gpuData);
+            internalReferences.push_back(amdGPUHandler);
         }
     }
     return result;
 }
 
-void GPUScanner::deconstructInternalResources() {
-
+void GPUScanner::freeInternalResources() {
+    //Free all internal variables
+    for(GPUHandler* &handler : internalReferences) {
+        handler->freeInternals();
+        delete handler;
+    }
 }

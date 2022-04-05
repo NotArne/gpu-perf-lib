@@ -16,6 +16,9 @@ private:
     MonitoringData* monitoringData;
 
 public:
+    CombinedGPUData(StaticDeviceData* staticDeviceData, MonitoringData* monitoringData);
+    ~CombinedGPUData() = default;
+
     StaticDeviceData *getStaticDeviceData() const;
 
     void setStaticDeviceData(StaticDeviceData *staticDeviceData);
