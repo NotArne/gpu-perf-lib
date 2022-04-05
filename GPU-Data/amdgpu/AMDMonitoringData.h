@@ -12,30 +12,20 @@ class AMDMonitoringData : public MonitoringData {
 private:
     amdgpu_device_handle gpuHandle;
 
-    int totalWorkload;
-    long usedVRAM;
-    int memoryClock;
-    int shaderClock;
-    int memoryTemperature;
-    int chipTemperature;
-    int powerConsumption;
-
 public:
     AMDMonitoringData(amdgpu_device_handle handle);
 
-    int getTotalGPUWorkload() override;
+    uint32_t getTotalGPUWorkload() override;
 
-    void updateData() override;
+    uint64_t getUsedVRAM() override;
 
-    long getUsedVRAM() override;
+    uint32_t getCurrentMemoryClock() override;
 
-    int getCurrentMemoryClock() override;
+    uint32_t getCurrentShaderClock() override;
 
-    int getCurrentShaderClock() override;
+    uint32_t getChipTemperature() override;
 
-    int getChipTemperature() override;
-
-    int getCurrentPowerConsumption() override;
+    uint32_t getCurrentPowerConsumption() override;
 };
 
 

@@ -6,59 +6,75 @@
 #include <iostream>
 
 #include "AMDMonitoringData.h"
+#include "../include/ExceptionHandling.h"
 
-AMDMonitoringData::AMDMonitoringData(amdgpu_device_handle handle) : MonitoringData(VENDOR_AMD) {
+AMDMonitoringData::AMDMonitoringData(amdgpu_device_handle handle) : MonitoringData(VENDOR_AMD_AMDGPU) {
     this->gpuHandle = handle;
-    this->updateData();
 }
 
-void AMDMonitoringData::updateData() {
-    // Temperature
-    amdgpu_query_sensor_info(gpuHandle, AMDGPU_INFO_SENSOR_GPU_TEMP,
-                             sizeof(uint32_t), &chipTemperature);
-
-    // Power consumption
-    amdgpu_query_sensor_info(gpuHandle, AMDGPU_INFO_SENSOR_GPU_AVG_POWER,
-                             sizeof(uint32_t), &powerConsumption);
-
-    // Shader clock
-    amdgpu_query_sensor_info(gpuHandle, AMDGPU_INFO_SENSOR_GFX_SCLK,
-                             sizeof(uint32_t), &shaderClock);
-
-    // Memory clock
-    amdgpu_query_sensor_info(gpuHandle, AMDGPU_INFO_SENSOR_GFX_MCLK,
-                             sizeof(uint32_t), &memoryClock);
-
+uint32_t AMDMonitoringData::getTotalGPUWorkload() {
+    uint32_t totalWorkload;
     // General GPU load
-    amdgpu_query_sensor_info(gpuHandle, AMDGPU_INFO_SENSOR_GPU_LOAD,
+    int checkError = amdgpu_query_sensor_info(gpuHandle, AMDGPU_INFO_SENSOR_GPU_LOAD,
                              sizeof(uint32_t), &totalWorkload);
-
-    // Usage of VRAM
-    amdgpu_query_sensor_info(gpuHandle, AMDGPU_INFO_VRAM_USAGE,
-                             sizeof(uint32_t), &usedVRAM);
-}
-
-int AMDMonitoringData::getTotalGPUWorkload() {
+    if(checkError != 0) {
+        throw GPUDataRetrievingFailureException("Failed to retrieve total GPU workload!", getVendor(), checkError);
+    }
     return totalWorkload;
 }
 
 
-long AMDMonitoringData::getUsedVRAM() {
+uint64_t AMDMonitoringData::getUsedVRAM() {
+    uint64_t usedVRAM;
+    // Usage of VRAM
+    int checkError = amdgpu_query_info(gpuHandle, AMDGPU_INFO_VRAM_USAGE,
+                             sizeof(uint64_t), &usedVRAM);
+    if(checkError != 0) {
+        throw GPUDataRetrievingFailureException("Failed to retrieve used VRAM!", getVendor(), checkError);
+    }
     return usedVRAM;
 }
 
-int AMDMonitoringData::getCurrentMemoryClock() {
+uint32_t AMDMonitoringData::getCurrentMemoryClock() {
+    uint32_t memoryClock;
+    // Memory clock
+    int checkError = amdgpu_query_sensor_info(gpuHandle, AMDGPU_INFO_SENSOR_GFX_MCLK,
+                             sizeof(uint32_t), &memoryClock);
+    if(checkError != 0) {
+        throw GPUDataRetrievingFailureException("Failed to retrieve current memory clock!", getVendor(), checkError);
+    }
     return memoryClock;
 }
 
-int AMDMonitoringData::getCurrentShaderClock() {
+uint32_t AMDMonitoringData::getCurrentShaderClock() {
+    uint32_t shaderClock;
+    // Shader clock
+    int checkError = amdgpu_query_sensor_info(gpuHandle, AMDGPU_INFO_SENSOR_GFX_SCLK,
+                             sizeof(uint32_t), &shaderClock);
+    if(checkError != 0) {
+        throw GPUDataRetrievingFailureException("Failed to retrieve current shader clock!", getVendor(), checkError);
+    }
     return shaderClock;
 }
 
-int AMDMonitoringData::getChipTemperature() {
+uint32_t AMDMonitoringData::getChipTemperature() {
+    uint32_t chipTemperature;
+    // Temperature
+    int checkError = amdgpu_query_sensor_info(gpuHandle, AMDGPU_INFO_SENSOR_GPU_TEMP,
+                             sizeof(uint32_t), &chipTemperature);
+    if(checkError != 0) {
+        throw GPUDataRetrievingFailureException("Failed to retrieve current chip temperature!", getVendor(), checkError);
+    }
     return chipTemperature;
 }
 
-int AMDMonitoringData::getCurrentPowerConsumption() {
+uint32_t AMDMonitoringData::getCurrentPowerConsumption() {
+    uint32_t powerConsumption;
+    // Power consumption
+    int checkError = amdgpu_query_sensor_info(gpuHandle, AMDGPU_INFO_SENSOR_GPU_AVG_POWER,
+                             sizeof(uint32_t), &powerConsumption);
+    if(checkError != 0) {
+        throw GPUDataRetrievingFailureException("Failed to retrieve current power consumption!", getVendor(), checkError);
+    }
     return powerConsumption;
 }

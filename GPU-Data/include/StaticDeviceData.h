@@ -15,13 +15,14 @@ protected:
     explicit StaticDeviceData(Vendor vendor) : BaseGPUData(vendor) {};
 
 public:
+    virtual void updateData() = 0;
     virtual std::string getMarketingName() = 0;
-    virtual int getMaxShaderClock() = 0;
-    virtual int getAmountOfShaders() = 0;
-    virtual int getAmountOfComputeUnits() = 0;
-    virtual int getMaxMemoryClock() = 0;
-    virtual int getMaxMemoryBitWidth() = 0;
-    virtual long getTotalVRAM() = 0;
+    virtual uint64_t getMaxShaderClock() = 0;
+    virtual uint32_t getAmountOfShaders() = 0;
+    virtual uint32_t getAmountOfComputeUnits() = 0;
+    virtual uint64_t getMaxMemoryClock() = 0;
+    virtual uint32_t getMemoryBitWidth() = 0;
+    virtual uint64_t getTotalVRAM() = 0;
 
 };
 

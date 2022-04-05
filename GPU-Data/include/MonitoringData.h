@@ -18,21 +18,25 @@ public:
     /**
      * @return Total GPU workload in percent
      */
-    virtual int getTotalGPUWorkload() = 0;
+    virtual uint32_t getTotalGPUWorkload() = 0;
 
-    virtual long getUsedVRAM() = 0;
+    virtual uint64_t getUsedVRAM() = 0;
 
-    virtual int getCurrentMemoryClock() = 0;
+    virtual uint32_t getCurrentMemoryClock() = 0;
 
-    virtual int getCurrentShaderClock() = 0;
+    virtual uint32_t getCurrentShaderClock() = 0;
 
     /**
      *
-     * @return Temperature of the Chip in °Celsius
+     * @return Temperature of the Chip in milli degrees celsius
      */
-    virtual int getChipTemperature() = 0;
+    virtual uint32_t getChipTemperature() = 0;
 
-    virtual int getCurrentPowerConsumption() = 0;
+    /**
+    *
+    * @return Temperature of the Chip in milli watts
+    */
+    virtual uint32_t getCurrentPowerConsumption() = 0;
 
 };
 

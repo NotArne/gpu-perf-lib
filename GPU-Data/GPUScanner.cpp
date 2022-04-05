@@ -7,14 +7,7 @@
 #include "include/GPUHandler.h"
 #include "amdgpu/AMDGPUHandler.h"
 
-#include <libdrm/amdgpu_drm.h>
-#include <libdrm/amdgpu.h>
 #include <xf86drm.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdint.h>
-#include <iostream>
-#include <cstring>
 
 std::vector<CombinedGPUData> GPUScanner::scanPort() {
 
@@ -26,7 +19,7 @@ std::vector<CombinedGPUData> GPUScanner::scanPort() {
     for(int i = 0; i < drmCount; i++) {
         /* If this is not PCI device, skip*/
         if (devices[i]->bustype != DRM_BUS_PCI) {
-            continue; // NO PCI Device -> not a GPU
+            continue; // Not a PCI Device -> not a GPU
         }
 
         // Handle a AMD GPU
