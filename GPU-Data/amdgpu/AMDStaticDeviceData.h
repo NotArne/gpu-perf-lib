@@ -15,12 +15,12 @@ private:
 
     // Member value variables
     std::string marketingName;
-    int maxShaderClock;
-    int maxMemoryClock;
-    long totalVRAM;
-    int memoryBitWidth;
-    int amountOfCUs;
-    int amountOfShaders;
+    uint64_t maxShaderClock;
+    uint64_t maxMemoryClock;
+    uint64_t totalVRAM;
+    uint32_t memoryBitWidth;
+    uint32_t amountOfCUs;
+    uint32_t amountOfShaders;
 
 
 public:
@@ -30,17 +30,18 @@ public:
 
     void updateData() override;
 
-    int getMaxShaderClock() override;
+    uint64_t getMaxShaderClock() override;
 
-    int getMaxMemoryClock() override;
+    uint64_t getMaxMemoryClock() override;
 
-    long getTotalVRAM() override;
+    uint64_t getTotalVRAM() override;
 
-    int getMaxMemoryBitWidth() override;
+    uint32_t getMemoryBitWidth() override;
 
-    int getAmountOfShaders() override;
+    uint32_t getAmountOfShaders() override;
 
-    int getAmountOfComputeUnits() override;
+    uint32_t getAmountOfComputeUnits() override;
+
 };
 
 

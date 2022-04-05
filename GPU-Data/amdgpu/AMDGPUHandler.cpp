@@ -5,6 +5,7 @@
 #include "AMDGPUHandler.h"
 #include "AMDStaticDeviceData.h"
 #include "AMDMonitoringData.h"
+#include "../include/ExceptionHandling.h"
 #include <libdrm/amdgpu.h>
 #include <xf86drm.h>
 #include <unistd.h>
@@ -31,7 +32,7 @@ CombinedGPUData AMDGPUHandler::initializeGPUData(drmDevicePtr devicePtr) {
         close(fd);
     }
     if (strcmp(version->name, "amdgpu")) {
-        /* This is not AMDGPU driver, skip.*/
+        // Not the amdgpu driver!
         drmFreeVersion(version);
         close(fd);
     }
@@ -48,7 +49,7 @@ CombinedGPUData AMDGPUHandler::initializeGPUData(drmDevicePtr devicePtr) {
         CombinedGPUData data(staticDeviceData, monitoringData);
         return data;
     } else {
-        return CombinedGPUData(nullptr, nullptr);
+        throw GPUInitializationFailureException(VENDOR_AMD_AMDGPU, res); // Exception
     }
 }
 

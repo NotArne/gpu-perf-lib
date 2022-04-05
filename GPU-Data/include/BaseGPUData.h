@@ -16,7 +16,6 @@ private:
 protected:
     BaseGPUData(Vendor vendor);
 public:
-    virtual void updateData() = 0;
     Vendor getVendor();
 };
 

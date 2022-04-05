@@ -28,7 +28,7 @@ add_executable(GPU_Monitor main.cpp
         GPU-Data/include/BaseGPUData.h
         GPU-Data/GPUScanner.cpp
         GPU-Data/include/GPUScanner.h
-        GPU-Data/include/SupportedVendors.h GPU-Data/BaseGPUData.cpp GPU-Data/CombinedGPUData.cpp GPU-Data/include/CombinedGPUData.h GPU-Data/include/GPUHandler.h GPU-Data/amdgpu/AMDGPUHandler.cpp GPU-Data/amdgpu/AMDGPUHandler.h)
+        GPU-Data/include/SupportedVendors.h GPU-Data/BaseGPUData.cpp GPU-Data/CombinedGPUData.cpp GPU-Data/include/CombinedGPUData.h GPU-Data/include/GPUHandler.h GPU-Data/amdgpu/AMDGPUHandler.cpp GPU-Data/amdgpu/AMDGPUHandler.h GPU-Data/include/ExceptionHandling.h GPU-Data/ExceptionHandling.cpp)
 
 target_compile_options(GPU_Monitor PUBLIC ${Libdrm_DEFINITIONS})
 
