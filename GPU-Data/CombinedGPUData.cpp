@@ -4,6 +4,11 @@
 
 #include "include/CombinedGPUData.h"
 
+CombinedGPUData::CombinedGPUData(StaticDeviceData* staticDeviceData, MonitoringData* monitoringData) {
+    this->staticDeviceData = staticDeviceData;
+    this->monitoringData = monitoringData;
+}
+
 StaticDeviceData *CombinedGPUData::getStaticDeviceData() const {
     return staticDeviceData;
 }

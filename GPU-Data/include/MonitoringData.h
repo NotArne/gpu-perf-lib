@@ -9,7 +9,7 @@
 /**
  * Interface representing all data concerning the actual GPU load
  */
-class MonitoringData : BaseGPUData {
+class MonitoringData : public BaseGPUData {
 
 protected:
     explicit MonitoringData(Vendor vendor) : BaseGPUData(vendor) {};
@@ -20,25 +20,19 @@ public:
      */
     virtual int getTotalGPUWorkload() = 0;
 
-    //virtual int getUsedVRAM() = 0;
+    virtual long getUsedVRAM() = 0;
 
-    //virtual int getCurrentMemoryClock() = 0;
+    virtual int getCurrentMemoryClock() = 0;
 
-    //virtual int getCurrentShaderClock() = 0;
-
-    /**
-     *
-     * @return Temperature of the VRAM in ° Celsius
-     */
-    //virtual int getMemoryTemperature() = 0;
+    virtual int getCurrentShaderClock() = 0;
 
     /**
      *
      * @return Temperature of the Chip in °Celsius
      */
-    //virtual int getChipTemperature() = 0;
+    virtual int getChipTemperature() = 0;
 
-    //virtual int getCurrentPowerConsumption() = 0;
+    virtual int getCurrentPowerConsumption() = 0;
 
 };
 

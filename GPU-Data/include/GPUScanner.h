@@ -6,6 +6,7 @@
 #define GPU_MONITOR_GPUSCANNER_H
 
 #include "CombinedGPUData.h"
+#include "GPUHandler.h"
 #include <vector>
 
 /**
@@ -14,9 +15,11 @@
 class GPUScanner {
 private:
     const int MAX_PCI_SCAN = 20;
+    std::vector<GPUHandler*> internalReferences;
+
 public:
     std::vector<CombinedGPUData> scanPort();
-    void deconstructInternalResources();
+    void freeInternalResources();
 };
 
 

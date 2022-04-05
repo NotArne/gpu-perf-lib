@@ -8,14 +8,34 @@
 #include <libdrm/amdgpu.h>
 #include "../include/MonitoringData.h"
 
-class AMDMonitoringData : MonitoringData{
+class AMDMonitoringData : public MonitoringData {
 private:
     amdgpu_device_handle gpuHandle;
 
+    int totalWorkload;
+    long usedVRAM;
+    int memoryClock;
+    int shaderClock;
+    int memoryTemperature;
+    int chipTemperature;
+    int powerConsumption;
+
 public:
     AMDMonitoringData(amdgpu_device_handle handle);
+
     int getTotalGPUWorkload() override;
+
     void updateData() override;
+
+    long getUsedVRAM() override;
+
+    int getCurrentMemoryClock() override;
+
+    int getCurrentShaderClock() override;
+
+    int getChipTemperature() override;
+
+    int getCurrentPowerConsumption() override;
 };
 
 
