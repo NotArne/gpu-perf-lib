@@ -37,7 +37,6 @@ CombinedGPUData AMDGPUHandler::initializeGPUData(drmDevicePtr devicePtr) {
         close(fd);
     }
     drmFreeVersion(version);
-    std::cout << fd << std::endl;
 
     uint32_t majorVersion, minorVersion;
 

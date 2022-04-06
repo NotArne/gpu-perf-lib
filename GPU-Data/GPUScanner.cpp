@@ -3,11 +3,14 @@
 //
 
 #include "include/GPUScanner.h"
-#include "include/SupportedVendors.h"
 #include "include/GPUHandler.h"
+
+#ifdef AMDGPU_FOUND
 #include "amdgpu/AMDGPUHandler.h"
+#endif
 
 #include <xf86drm.h>
+#include <iostream>
 
 std::vector<CombinedGPUData> GPUScanner::scanPort() {
 
@@ -21,7 +24,7 @@ std::vector<CombinedGPUData> GPUScanner::scanPort() {
         if (devices[i]->bustype != DRM_BUS_PCI) {
             continue; // Not a PCI Device -> not a GPU
         }
-
+#ifdef AMDGPU_FOUND
         // Handle a AMD GPU
         if (devices[i]->deviceinfo.pci->vendor_id == VendorID::VENDOR_ID_AMD) {
             GPUHandler* amdGPUHandler = new AMDGPUHandler;
@@ -29,6 +32,8 @@ std::vector<CombinedGPUData> GPUScanner::scanPort() {
             result.push_back(gpuData);
             internalReferences.push_back(amdGPUHandler);
         }
+#endif
+
     }
     return result;
 }
