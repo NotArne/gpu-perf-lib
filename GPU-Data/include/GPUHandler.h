@@ -6,13 +6,18 @@
 #define GPU_MONITOR_GPUHANDLER_H
 
 #include <vector>
+
+#ifdef LIBDRM_FOUND
 #include <xf86drm.h>
+#endif
+
 #include "CombinedGPUData.h"
 
 class GPUHandler {
 
 public:
-    virtual CombinedGPUData initializeGPUData(drmDevicePtr devicePtr) = 0;
+    template <class GPURef>
+    CombinedGPUData initializeGPUData(GPURef devicePtr) {};
     virtual void freeInternals() = 0;
 
 };

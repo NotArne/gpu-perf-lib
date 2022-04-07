@@ -13,6 +13,7 @@ macro(reference_libdrm target)
     target_include_directories(${target} PRIVATE ${Libdrm_INCLUDE_DIRS})
     target_compile_options(${target} PUBLIC ${Libdrm_DEFINITIONS})
     target_link_libraries(${target} PRIVATE ${Libdrm_LIBRARIES})
+    target_compile_definitions(target PUBLIC LIBDRM_FOUND)
 endmacro()
 
 find_package(PkgConfig)
@@ -39,7 +40,9 @@ add_library(gpu-data STATIC
         GPU-Data/GPUScanner.cpp
         ${AMDGPU_SRC} # Add amdgpu specific implementation
         )
+if(${LibDRM_FOUND})
 reference_libdrm(gpu-data)
+endif()
 target_include_directories(gpu-data PRIVATE gpu-data/include)
 
 if(${LIBDRM_AMDGPU_FOUND}) # Add amdgpu specific implementation

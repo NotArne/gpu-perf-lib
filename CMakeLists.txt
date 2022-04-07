@@ -7,6 +7,8 @@ include(GPU-Data/CMakeLists.txt)
 
 add_executable(GPU_Monitor main.cpp)
 
-target_include_directories(GPU_Monitor PRIVATE ${Libdrm_INCLUDE_DIRS})
 target_include_directories(GPU_Monitor PRIVATE gpu-data/include)
 target_link_libraries(GPU_Monitor PRIVATE gpu-data)
+if(LibDRM_FOUND)
+target_include_directories(GPU_Monitor PRIVATE ${Libdrm_INCLUDE_DIRS})
+endif()
