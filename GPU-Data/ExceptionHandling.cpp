@@ -33,3 +33,19 @@ Vendor GPUDataRetrievingFailureException::getVendor() {
 int GPUDataRetrievingFailureException::getErrorCode() {
     return errorCode;
 }
+
+
+GPUDataRetrievingUnsupportedException::GPUDataRetrievingUnsupportedException(std::string errorMessage, std::string queryParameter, Vendor vendor)
+: errorMessage(errorMessage), queryParameter(queryParameter), vendor(vendor) {}
+
+const char *GPUDataRetrievingUnsupportedException::what() const noexcept {
+    return errorMessage.c_str();
+}
+
+Vendor GPUDataRetrievingUnsupportedException::getVendor() {
+    return vendor;
+}
+
+std::string GPUDataRetrievingUnsupportedException::getQueryParameter() {
+    return queryParameter;
+}
