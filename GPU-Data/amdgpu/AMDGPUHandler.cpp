@@ -24,17 +24,14 @@ CombinedGPUData AMDGPUHandler::initializeGPUData(drmDevicePtr devicePtr) {
 
     drmVersion *version = drmGetVersion(fd);
     if (!version) {
-
-        fprintf(stderr,
-                "Warning: Cannot get version for %s."
-                "Error is %s\n",
-                devicePtr->nodes[0]);
+        throw GPUInitializationFailureException(VENDOR_AMD_AMDGPU, 1);
         close(fd);
     }
     if (strcmp(version->name, "amdgpu")) {
         // Not the amdgpu driver!
         drmFreeVersion(version);
         close(fd);
+        throw GPUInitializationFailureException(VENDOR_AMD_AMDGPU, 2);
     }
     drmFreeVersion(version);
 

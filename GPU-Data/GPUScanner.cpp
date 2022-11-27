@@ -2,6 +2,12 @@
 // Created by arne on 29.03.22.
 //
 
+#include <xf86drm.h>
+#include <iostream>
+#include <fcntl.h>
+#include <unistd.h>
+#include <cstring>
+
 #include "include/GPUScanner.h"
 #include "include/GPUHandler.h"
 
@@ -9,8 +15,9 @@
 #include "amdgpu/AMDGPUHandler.h"
 #endif
 
-#include <xf86drm.h>
-#include <iostream>
+#ifdef NVIDIA_FOUND
+#include "nvidia/include/NvidiaHandler.h"
+#endif
 
 std::vector<CombinedGPUData> GPUScanner::scanPort() {
 
@@ -31,6 +38,16 @@ std::vector<CombinedGPUData> GPUScanner::scanPort() {
             CombinedGPUData gpuData = amdGPUHandler->initializeGPUData(devices[i]);
             result.push_back(gpuData);
             internalReferences.push_back(amdGPUHandler);
+        }
+#endif
+
+#ifdef NVIDIA_FOUND
+        //Handle a NVIDIA GPU
+        if(devices[i]->deviceinfo.pci->vendor_id == VendorID::VENDOR_ID_NVIDIA) {
+            GPUHandler* nvidiaGPUHandler = new NvidiaHandler;
+            CombinedGPUData gpuData = nvidiaGPUHandler->initializeGPUData(devices[i]);
+            result.push_back(gpuData);
+            internalReferences.push_back(nvidiaGPUHandler);
         }
 #endif
 

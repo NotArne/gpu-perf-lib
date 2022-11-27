@@ -39,4 +39,21 @@ public:
     int getErrorCode();
 };
 
+class GPUDataRetrievingUnsupportedException : public std::exception {
+    Vendor vendor;
+    std::string errorMessage;
+    std::string queryParameter;
+
+    std::string returnMessage;
+public:
+    explicit GPUDataRetrievingUnsupportedException(std::string errorMessage, std::string queryParameter, Vendor vendor);
+
+    const char* what() const noexcept override;
+
+    Vendor getVendor();
+
+    std::string getQueryParameter();
+};
+
+
 #endif //GPU_MONITOR_EXCEPTIONHANDLING_H
