@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <amdgpu_drm.h>
-#include "AMDStaticDeviceData.h"
+#include "include/AMDStaticDeviceData.h"
 #include "../include/ExceptionHandling.h"
 
 AMDStaticDeviceData::AMDStaticDeviceData(amdgpu_device_handle gpuHandle) : StaticDeviceData(VENDOR_AMD_AMDGPU) {

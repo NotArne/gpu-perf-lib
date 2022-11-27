@@ -2,7 +2,7 @@
 // Created by arne on 30.03.22.
 //
 
-#include "include/CombinedGPUData.h"
+#include "../include/CombinedGPUData.h"
 
 CombinedGPUData::CombinedGPUData(StaticDeviceData* staticDeviceData, MonitoringData* monitoringData) {
     this->staticDeviceData = staticDeviceData;

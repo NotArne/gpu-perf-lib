@@ -2,16 +2,15 @@
 // Created by arne on 04.04.22.
 //
 
-#include "AMDGPUHandler.h"
-#include "AMDStaticDeviceData.h"
-#include "AMDMonitoringData.h"
+#include "include/AMDGPUHandler.h"
+#include "include/AMDStaticDeviceData.h"
+#include "include/AMDMonitoringData.h"
 #include "../include/ExceptionHandling.h"
 #include <libdrm/amdgpu.h>
 #include <xf86drm.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdint.h>
-#include <iostream>
 #include <cstring>
 
 CombinedGPUData AMDGPUHandler::initializeGPUData(drmDevicePtr devicePtr) {

@@ -7,7 +7,7 @@
 
 
 #include <amdgpu.h>
-#include "../include/GPUHandler.h"
+#include "../../include/GPUHandler.h"
 
 class AMDGPUHandler : public GPUHandler {
 private:

@@ -7,7 +7,7 @@
 
 
 #include <amdgpu.h>
-#include "../include/StaticDeviceData.h"
+#include "../../include/StaticDeviceData.h"
 
 class AMDStaticDeviceData : public StaticDeviceData {
 private:

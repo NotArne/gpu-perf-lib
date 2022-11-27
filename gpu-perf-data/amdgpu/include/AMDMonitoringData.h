@@ -6,7 +6,7 @@
 #define GPU_MONITOR_AMDMONITORINGDATA_H
 
 #include <libdrm/amdgpu.h>
-#include "../include/MonitoringData.h"
+#include "../../include/MonitoringData.h"
 
 class AMDMonitoringData : public MonitoringData {
 private:

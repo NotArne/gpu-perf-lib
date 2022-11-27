@@ -3,9 +3,8 @@
 //
 #include <libdrm/amdgpu_drm.h>
 #include <libdrm/amdgpu.h>
-#include <iostream>
 
-#include "AMDMonitoringData.h"
+#include "include/AMDMonitoringData.h"
 #include "../include/ExceptionHandling.h"
 
 AMDMonitoringData::AMDMonitoringData(amdgpu_device_handle handle) : MonitoringData(VENDOR_AMD_AMDGPU) {

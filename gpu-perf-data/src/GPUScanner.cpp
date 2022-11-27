@@ -8,15 +8,15 @@
 #include <unistd.h>
 #include <cstring>
 
-#include "include/GPUScanner.h"
-#include "include/GPUHandler.h"
+#include "../include/GPUScanner.h"
+#include "../include/GPUHandler.h"
 
 #ifdef AMDGPU_FOUND
-#include "amdgpu/AMDGPUHandler.h"
+#include "../amdgpu/include/AMDGPUHandler.h"
 #endif
 
 #ifdef NVIDIA_FOUND
-#include "nvidia/include/NvidiaHandler.h"
+#include "../nvidia/include/NvidiaHandler.h"
 #endif
 
 std::vector<CombinedGPUData> GPUScanner::scanPort() {

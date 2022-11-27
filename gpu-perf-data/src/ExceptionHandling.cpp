@@ -2,7 +2,7 @@
 // Created by arne on 06.04.22.
 //
 
-#include "include/ExceptionHandling.h"
+#include "../include/ExceptionHandling.h"
 
 GPUInitializationFailureException::GPUInitializationFailureException(Vendor vendor, int errorCode) : vendor(vendor), errorCode(errorCode) {}
 
